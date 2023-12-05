@@ -1,0 +1,52 @@
+  .topbar{
+  margin-left: 25%;
+  margin-top: 20px;
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  }
+
+  .topbar-text h2{
+  color: #333333;
+  font-size: 28px;
+  font-family: 'Roboto', sans-serif;
+  }
+
+  .topbar-text p{
+  color: #555555;
+  font-family: 'Roboto', sans-serif;
+  }
+
+  .topbar-image{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  }
+
+  .profile-pic{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  }
+
+  .topbar-image p{
+  color: #555555;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  }
+
+  @media screen and (max-width: 700px) {
+
+  .topbar{
+   margin-left: 15%;
+   align-items: end;
+   margin-bottom: 15px;
+   }
+
+  }

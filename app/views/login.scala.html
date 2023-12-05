@@ -1,0 +1,226 @@
+
+
+@import play.i18n.Messages
+@import play.mvc.Http.Request
+@import helper._
+@(loginForm: Form[Forms.Login])(implicit request: Request, messages:play.i18n.Messages  )
+
+@main("login"){
+
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="@routes.Assets.versioned("styles.css")">
+    <link rel="stylesheet" href="styles.css">
+    <title>Login Page</title>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <div class="purple-square">
+            <!-- Purple square content -->
+        </div>
+    </div>
+    <div class="right">
+
+
+        @if(request.flash().get("success").isPresent()) {
+        <div id="success-alert" class="success-alert">
+            <p> @request.flash().get("success").get()</p>
+        </div>
+        }
+
+        <h2>Sign In</h2>
+        <h6>Don't have an Account? <span class="purple-text"><a href="@routes.registerController.create()">Sign Up</a></span></h6>
+        @form(routes.loginController.login()) {
+        @CSRF.formField
+        <label class="input-label">Username:</label>
+        <div class="input-container">
+            @inputText(loginForm("username"),
+            'class -> "styled-input",
+            Symbol("_label") -> Nil,
+            'placeholder -> "Enter your username",
+            Symbol("_showConstraints")->false)
+
+        </div>
+
+            <div class="input-container">
+                <label class="input-label">Password:</label>
+                @inputPassword(loginForm("password"),
+                'class -> "styled-input",
+                Symbol("_label") -> Nil,
+                'placeholder -> "Enter your password",
+                Symbol("_showConstraints")->false)
+
+                @if(loginForm("validatePassword").hasErrors) {
+                @for(error <- loginForm("validatePassword").errors()) {
+                <span class="error">@error.message()</span>
+                }
+                }
+            </div>
+
+        <button id="loginButton" type="submit">Login</button>
+        <div class="loader-container">
+            <div id="loader" class="loader"></div>
+        </div>
+            }
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+<style>
+    body {
+         margin: 0;
+         padding: 0;
+         font-family: Arial, sans-serif;
+     }
+
+     .container {
+         display: flex;
+         height: 130vh;
+
+     }
+     .purple-text {
+     color: purple;
+ }
+
+
+
+     .left {
+         flex: 1;
+         background-color: purple;
+          width: 200%;
+     }
+
+ .styled-input {
+
+     width:250px;
+     padding:10px;
+ }
+
+ .styled-input::placeholder {
+     /* Style the placeholder text here */
+     color: #999; /* Change the color to your preference */
+ }
+ .error {
+     color: red;
+     font-size: 14px;
+ }
+ .error-message {
+     color: red;
+     font-size: 14px;
+ }
+
+
+     .purple-square {
+         width: 200px;
+         height: 500px;
+         background-color:;
+         margin: 20px;
+     }
+
+     .right {
+         flex: 1;
+         display: flex;
+         flex-direction: column;
+         align-items: start;
+         justify-content: start;
+
+     }
+
+     h2 {
+         color: #333; /* Dark gray text color */
+          margin-left:40px;
+     }
+
+     h6 {
+         font-size: 15px;
+          margin-left:40px;
+         margin-top:2px;
+         color: #333; /* Dark gray text color for the "Have an Account?" text */
+     }
+
+     form {
+         text-align: start;
+          font-size: 15px;
+     }
+
+ .input-container {
+     display: flex;
+
+     flex-direction: column;
+     width: 200px; /* Adjust the width as needed */
+     margin-right: 20px; /* Adjust the margin between label-input pairs */
+ }
+
+ .input-label {
+     margin-bottom: 3px;
+     width: 500px; /* Adjust the width of the label as needed */
+     margin-left:40px;
+ }
+
+    .error-message {
+         color: red;
+
+     }
+
+
+
+     button {
+         background-color: purple;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         padding: 10px 20px;
+         cursor: pointer;
+          margin-left:40px;
+         width: 60%;
+
+     }
+
+     button:hover {
+         background-color: #9c27b0; /* Darker purple on hover */
+     }
+
+    .success-alert {
+    color: white;
+    background-color:green;;
+    border-color: white;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    top: 10px;
+    right: 10px;
+    width:400px;
+
+}
+
+</style>
+}
+
+
+<script>
+    // Wait for the DOM to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the success alert element
+        var successAlert = document.getElementById("success-alert");
+
+        // Check if the element exists
+        if (successAlert) {
+            // Set a timeout to hide the success alert after 5000 milliseconds (5 seconds)
+            setTimeout(function () {
+                successAlert.style.display = "none";
+            }, 5000); // Adjust the duration as needed
+        }
+    });
+
+      document.getElementById('loginButton').addEventListener('click', function() {
+        // Show loader
+        document.getElementById('loader').style.display = 'inline-block';
+    });
+</script>

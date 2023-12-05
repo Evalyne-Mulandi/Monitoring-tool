@@ -1,0 +1,100 @@
+@(auditTrailResponse: com.fasterxml.jackson.databind.JsonNode, username: String, password: String)
+
+
+@main("adminDashboard") {
+@Components.topbar("Dashboard" , "Hello there, " + username, username)
+@Components.sidebar()
+<div class="tiles">
+    @defining(auditTrailResponse.get("data")) { auditTrailData =>
+    @defining(for (i <- 0 until auditTrailData.size()) yield auditTrailData.get(i)) { auditTrailSeq =>
+    @defining(auditTrailSeq.size().toString) { totalSessions =>
+    @Components.homeTiles(Html("""
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"
+         width="24" height="24" color="#000000">
+        <defs>
+            <style>.cls-6374f8d9b67f094e4896c650-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+        </defs>
+        <circle class="cls-6374f8d9b67f094e4896c650-1" cx="9.61" cy="7.73" r="4.3"></circle>
+        <path class="cls-6374f8d9b67f094e4896c650-1"
+              d="M1.5,21.57l.69-3.46A7.58,7.58,0,0,1,9.61,12h0A7.56,7.56,0,0,1,17,18.11l.7,3.46"></path>
+        <path class="cls-6374f8d9b67f094e4896c650-1" d="M12,11.3a4.3,4.3,0,1,0,0-7.14"></path>
+        <path class="cls-6374f8d9b67f094e4896c650-1" d="M22.5,21.57l-.7-3.47A7.55,7.55,0,0,0,12,12.41"></path>
+    </svg>
+
+    """), totalSessions, "Total Sessions","#7ECCEF")
+    }
+    }
+    }
+
+    @defining(auditTrailResponse.get("data")) { auditTrailData =>
+    @defining(for (i <- 0 until auditTrailData.size()) yield auditTrailData.get(i)) { auditTrailSeq =>
+    @defining(auditTrailSeq.size().toString) {  totalTransactions =>
+    @Components.homeTiles(Html("""
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"
+         width="24" height="24" color="#000000">
+        <defs>
+            <style>.cls-6374f8d9b67f094e4896c626-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+        </defs>
+        <circle class="cls-6374f8d9b67f094e4896c626-1" cx="9.61" cy="5.8" r="4.3"></circle>
+        <path class="cls-6374f8d9b67f094e4896c626-1"
+              d="M1.5,19.64l.7-3.47a7.56,7.56,0,0,1,7.41-6.08,7.48,7.48,0,0,1,4.6,1.57"></path>
+        <circle class="cls-6374f8d9b67f094e4896c626-1" cx="16.77" cy="16.77" r="5.73"></circle>
+        <polyline class="cls-6374f8d9b67f094e4896c626-1" points="19.64 14.86 16.3 18.2 14.39 16.3"></polyline>
+    </svg>
+    """), totalTransactions, "Total Transactions","#6C2671")
+
+    }
+    }
+    }
+
+
+
+    @Components.homeTiles(Html("""
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"
+         width="24" height="24" color="#000000">
+        <defs>
+            <style>.cls-637647fac3a86d32eae6f243-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+        </defs>
+        <line class="cls-637647fac3a86d32eae6f243-1" x1="17.73" y1="11.05" x2="10.09" y2="11.05"></line>
+        <line class="cls-637647fac3a86d32eae6f243-1" x1="17.73" y1="14.86" x2="10.09" y2="14.86"></line>
+        <line class="cls-637647fac3a86d32eae6f243-1" x1="17.73" y1="18.68" x2="10.09" y2="18.68"></line>
+        <polygon class="cls-637647fac3a86d32eae6f243-1"
+                 points="20.59 6.27 20.59 22.5 3.41 22.5 3.41 1.5 15.82 1.5 20.59 6.27"></polygon>
+        <polygon class="cls-637647fac3a86d32eae6f243-1"
+                 points="20.59 6.27 20.59 7.23 14.86 7.23 14.86 1.5 15.82 1.5 20.59 6.27"></polygon>
+        <line class="cls-637647fac3a86d32eae6f243-1" x1="6.27" y1="11.05" x2="8.18" y2="11.05"></line>
+        <line class="cls-637647fac3a86d32eae6f243-1" x1="6.27" y1="14.86" x2="8.18" y2="14.86"></line>
+        <line class="cls-637647fac3a86d32eae6f243-1" x1="6.27" y1="18.68" x2="8.18" y2="18.68"></line>
+    </svg>
+    """), "145", "Complete Sessions", "#6C2671")
+
+</div>
+
+@defining(auditTrailResponse.get("data")) { auditTrailData =>
+@defining(for (i <- 0 until auditTrailData.size()) yield auditTrailData.get(i)) { auditTrailSeq =>
+@defining(auditTrailSeq.take(5)) { first5Rows =>
+@Components.table(
+Seq("service Code", "initiatorPhone", "amount", "mpesaRef", "salesforcePhone", "initiatorName", "sessionId", "paymentStatus", "paymentStatusMsg", "dateTime"),
+
+first5Rows.map { auditTrail =>
+Seq(
+auditTrail.get("serviceCode").asText,
+auditTrail.get("initiatorPhone").asText,
+auditTrail.get("amount").asText,
+auditTrail.get("mpesaRef").asText,
+auditTrail.get("salesforcePhone").asText,
+auditTrail.get("initiatorName").asText,
+auditTrail.get("sessionId").asText,
+auditTrail.get("paymentStatus").asText,
+auditTrail.get("paymentStatusMessage").asText,
+auditTrail.get("dateTime").asText
+)
+},
+false,
+"Recent Transactions"
+)
+}
+}
+}
+}
+

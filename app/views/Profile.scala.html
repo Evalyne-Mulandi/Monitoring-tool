@@ -1,0 +1,12 @@
+@(userResponse: com.fasterxml.jackson.databind.JsonNode, username : String)
+
+@main("profile") {
+
+
+<body style="background-color: #f5f5f5;">
+@Components.topbar("Profile" ,"", username)
+
+@Components.sidebar(true)
+@Components.forms("Update Profile", Seq(("First Name", "firstName"), ("Last Name", "lastName"), ("Username", "username"), ("Phone", "phone")), userResponse)
+</body>
+}

@@ -1,0 +1,114 @@
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+
+<div class="filters">
+    <div class="left">
+        <button class="filterBtn clear" id="clear">Clear
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 width="24" height="24" color="#ACC3FF">
+                <defs>
+                    <style>.cls-6374f8d9b67f094e4896c632-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+                </defs>
+                <polygon class="cls-6374f8d9b67f094e4896c632-1"
+                         points="2 2 2 5.64 10.18 15.64 10.18 22 13.82 20.18 13.82 15.64 22 5.64 22 2 2 2"></polygon>
+            </svg>
+        </button>
+
+    </div>
+
+    <div class="right">
+        <div class="input-group">
+            <input id="filter" placeholder="Search with any field"/>
+            <div class="search-icon">
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="20" height="20" color="#6C2671"><defs><style>.cls-6374f8d9b67f094e4896c660-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style></defs><circle class="cls-6374f8d9b67f094e4896c660-1" cx="9.14" cy="9.14" r="7.64"></circle><line class="cls-6374f8d9b67f094e4896c660-1" x1="22.5" y1="22.5" x2="14.39" y2="14.39"></line></svg>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .filters{
+    margin-left: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    }
+
+    .filters .left , .filters .right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+
+    .filter .right{
+    justify-content: start;
+    }
+
+    .filters button{
+    width: 130px;
+    outline: 0;
+    border: 0;
+    background-color: white;
+    padding: 10px;
+    }
+
+    .filterBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 10px;}
+
+   .filterBtn.clear {
+    color: #ACC3FF;
+    border: 1px solid #ACC3FF;
+}
+
+
+   .filterBtn.approve {
+    color: #2EAE4A;
+    border: 1px solid #2EAE4A;
+}
+
+    .filterBtn.disable{
+    color: #FF0000;
+    border: 1px solid #FF0000;
+    height: min-content;
+    }
+
+    .input-group{
+    position: relative;
+    }
+
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .input-group input{
+    padding: 10px;
+    border: 1px solid #ACC3FF;
+    outline: 0;
+    border-radius: 10px;
+    }
+</style>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+         var input = document.getElementById('filter');
+         var button = document.getElementById('filterbutton');
+
+         console.log("hi");
+
+         input.addEventListener('input', function() {
+            var event = new Event('filterButtonClicked');
+            document.dispatchEvent(event);
+         });
+     });
+</script>

@@ -1,0 +1,91 @@
+    .sidebar{
+    position:absolute;
+    background-color: white;
+    height: 100%;
+    top:0;
+   left: 0;
+   width: 250px;
+   border-radius: 0 20px 20px 0;
+   box-shadow: 0 0 7px rgba(0, 0, 0, 0.10);
+   font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    position: fixed;
+    }
+
+    .sidebar img{
+    width: 150px;
+    padding: 30px 15px;
+    }
+
+    .sidebar h4{
+    margin-left: 25px;
+    color: #777777;
+    font-size: 12px;
+    }
+
+    .sidebar ul{
+    padding: 0;
+     margin-left: 25px;
+    }
+
+     .sidebar ul li{
+     font-size: 14px;
+     color: #333333;
+     margin: 12px 0;
+     display: flex;
+     align-items: center;
+     gap: 30px;
+     list-style:none;
+     }
+
+    .logoutBtn{
+    bottom: 30px;
+    color: white;
+    background-color: #6C2671;
+    margin: 0 25%;
+    margin-top: 70%;outline: 0;
+border: 0;
+padding: 10px;
+width: 100px;
+border-radius: 10px;
+    }
+a{
+text-decoration: none;
+transition: all 0.3s ease;
+}
+
+
+.sidebar ul a.active li{
+    font-weight: bold;
+    color: #222222;
+    font-size:16px;
+}
+
+.toggle{
+display: none;
+position: absolute;
+}
+
+#close{
+position: absolute;
+top: 30px;
+left: 280px;
+display: none;
+}
+
+@media screen and (max-width: 700px) {
+ .sidebar{
+ display: none}
+
+ .toggle{
+ display: block;
+ position: absolute;
+ top: 30px;
+ left: 30px;
+ }
+ }
+
+a{
+ text-decoration: none;
+  color: inherit;
+}

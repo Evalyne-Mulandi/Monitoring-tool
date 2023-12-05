@@ -1,0 +1,67 @@
+@(auditTrailResponse: com.fasterxml.jackson.databind.JsonNode, username: String, password: String)
+
+@main("payments") {
+@Components.topbar("All Payments" , "Hello " + username, username)
+@Components.filter()
+@Components.sidebar()
+@defining(auditTrailResponse.get("data")) { auditTrailData =>
+@defining(for (i <- 0 until auditTrailData.size()) yield auditTrailData.get(i)) { auditTrailSeq =>
+@defining(auditTrailSeq.size()) { totalTransactions =>
+@Components.table(
+Seq("service Code", "initiatorPhone", "amount", "mpesaRef", "salesforcePhone", "initiatorName", "sessionId", "paymentStatus", "paymentStatusMsg", "dateTime"),
+
+auditTrailSeq.reverse.map { auditTrail =>
+Seq(
+auditTrail.get("serviceCode").asText,
+auditTrail.get("initiatorPhone").asText,
+auditTrail.get("amount").asText,
+auditTrail.get("mpesaRef").asText,
+auditTrail.get("salesforcePhone").asText,
+auditTrail.get("initiatorName").asText,
+auditTrail.get("sessionId").asText,
+auditTrail.get("paymentStatus").asText,
+auditTrail.get("paymentStatusMessage").asText,
+auditTrail.get("dateTime").asText
+)
+},
+false,
+"All Transactions"
+)
+}
+}
+}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var clear = document.getElementById("clear");
+        var admin = document.getElementById("admin");
+
+        clear.addEventListener('click', function() {
+            var input = document.getElementById('filter');
+            input.value = ""; // Set the input value to an empty string
+            filterTable(input.value);
+        });
+
+
+        function filterTable(inputValue) {
+            var rows = document.querySelectorAll('.tableContainer tbody tr'); // Select only tbody rows
+            rows.forEach(function (row) {
+                var value = row.innerText.toLowerCase();
+                // If the row contains the input value or it's the heading row, show the row
+                if (value.includes(inputValue.toLowerCase()) || row.classList.contains('heading-row')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none'; // Hide other rows
+                }
+            });
+        }
+
+        document.addEventListener('filterButtonClicked', function() {
+            var input = document.getElementById('filter');
+            var inputValue = input.value.trim();
+            filterTable(inputValue);
+        });
+    });
+</script>
+}

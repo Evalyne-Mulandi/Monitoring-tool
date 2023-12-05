@@ -1,0 +1,270 @@
+
+@import play.api.mvc.Flash
+
+@import play.i18n.Messages
+@import play.mvc.Http.Request
+@import helper._
+@(userForm: Form[Forms.User])(implicit request: Request,   messages:play.i18n.Messages)
+
+@main("register"){
+
+
+
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="@routes.Assets.versioned("styles.css")">
+
+    <link rel="stylesheet" href="styles.css">
+    <title>Registration Page</title>
+
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="left">
+        <div class="purple-square">
+            <!-- Purple square content -->
+        </div>
+    </div>
+    <div class="right">
+        <h2>Sign Up</h2>
+        <h6>Already have an Account? <span class="purple-text"><a href="@routes.loginController.login()">Sign In</a></span></h6>
+        @form(routes.registerController.register()) {
+        @CSRF.formField
+        <label class="input-label">Username:</label>
+        <div class="input-container">
+            @inputText(userForm("username"),
+            Symbol("class") -> "styled-input",
+            Symbol("_label") -> Nil,
+            Symbol("placeholder") -> "Enter your username",
+            Symbol("_showConstraints")->false)
+
+            @if(userForm("validateUsername").hasErrors) {
+            @for(error <- userForm("validateUsername").errors()) {
+            <span class="error">@error.message()</span>
+            }
+            }
+        </div>
+
+        <label class="input-label">First name:</label>
+        <div class="input-container">
+            @inputText(userForm("firstName"),
+            Symbol("class") -> "styled-input",
+            Symbol("_label") -> Nil,
+            Symbol("placeholder") -> "Enter your first name",
+            Symbol("_showConstraints")->false)
+        </div>
+
+        <label class="input-label">Last name:</label>
+        <div class="input-container">
+            @inputText(userForm("lastName"),
+            Symbol("class") -> "styled-input",
+            Symbol("_label") -> Nil,
+            Symbol("placeholder") -> "Enter your last name",
+            Symbol("_showConstraints")->false)
+        </div>
+
+        <label class="input-label">Email:</label>
+        <div class ="input-container">
+            @inputText(userForm("email"),
+            Symbol("_label") -> Nil,
+            Symbol("class") -> "styled-input",
+            Symbol("placeholder") -> "Enter your email",
+            Symbol("_showConstraints")->false)
+
+            <label class="input-label">Phone number:</label>
+    <div class="input-container">
+        @inputText(userForm("phoneNumber"),
+        Symbol("class") -> "styled-input",
+        Symbol("_label") -> Nil,
+        Symbol("placeholder") -> "Enter your phone number",
+        Symbol("_showConstraints")->false)
+    </div>
+
+            <label class="input-label">Password:</label>
+    <div class="input-container">
+        @inputPassword(userForm("password"),
+        Symbol("class") -> "styled-input",
+        Symbol("_label") -> Nil,
+        Symbol("placeholder") -> "Enter your password",
+        Symbol("_showConstraints")->false)
+
+        @if(userForm("validatePassword").hasErrors) {
+        @for(error <- userForm("validatePassword").errors()) {
+        <span class="error">@error.message()</span>
+        }
+        }
+    </div>
+
+            <label class="input-label">Repeat password:</label>
+    <div class="input-container">
+        @inputPassword(userForm("repeatPassword"),
+        Symbol("class") -> "styled-input",
+        Symbol("_label") -> Nil,
+        Symbol("placeholder") -> "Enter your password again",
+        Symbol("_showConstraints")->false)
+
+        @if(userForm("validatePassword").hasErrors) {
+        @for(error <- userForm("validatePassword").errors()) {
+        <span class="error">@error.message()</span>
+        }
+        }
+    </div>
+
+            <button id="registerButton" type="submit">Register</button>
+            <div class="loader-container">
+                <div id="loader" class="loader"></div>
+            </div>
+
+            }
+
+</div>
+
+    </div>
+
+</body>
+</html>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        height: 130vh;
+
+    }
+    .purple-text {
+    color: purple;
+}
+
+    .left {
+        flex: 1;
+        background-color: purple;
+         width: 200%;
+    }
+
+.styled-input {
+
+    width:250px;
+    padding:10px;
+}
+
+.styled-input::placeholder {
+    /* Style the placeholder text here */
+    color: #999; /* Change the color to your preference */
+}
+
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    width:200px;
+}
+
+
+    .purple-square {
+        width: 200px;
+        height: 500px;
+        background-color:;
+        margin: 20px;
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+
+    }
+
+    h2 {
+        color: #333; /* Dark gray text color */
+         margin-left:40px;
+    }
+
+    h6 {
+        font-size: 15px;
+         margin-left:40px;
+        margin-top:2px;
+        color: #333; /* Dark gray text color for the "Have an Account?" text */
+    }
+
+    form {
+        text-align: start;
+         font-size: 15px;
+    }
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    width: 200px; /* Adjust the width as needed */
+    margin-right: 20px; /* Adjust the margin between label-input pairs */
+}
+
+.input-label {
+    margin-bottom: 3px;
+    width: 500px; /* Adjust the width of the label as needed */
+    margin-left:40px;
+}
+
+   .error-message {
+        color: red;
+         width:200px;
+
+    }
+
+     .error {
+        color: red;
+        margin-left:40px;
+        width:200px;
+        margin-top:5px;
+
+    }
+
+
+
+
+    button {
+        background-color: purple;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+         margin-left:40px;
+        width: 60%;
+
+    }
+
+    button:hover {
+        background-color: #9c27b0; /* Darker purple on hover */
+    }
+
+
+
+
+
+
+
+
+
+</style>
+}
+<script>
+    document.getElementById('registerButton').addEventListener('click', function() {
+        // Show loader
+        document.getElementById('loader').style.display = 'inline-block';
+    });
+
+
+
+
+</script>
+

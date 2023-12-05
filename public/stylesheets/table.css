@@ -1,0 +1,174 @@
+    .tableContainer{
+    margin-top: 30px;
+    background-color: white;
+    margin-left: 25%;
+    width: 66%;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
+    font-family: 'Inter', sans-serif;
+    overflow-x: scroll;
+    }
+    .tableContainer div{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    }
+
+    .tableContainer div h3{
+    color: #555555;
+    }
+
+     .tableContainer div p{
+    font-size: 13px;
+    color: #6C2671;
+    font-weight: 700;
+    }
+    .tableContainer table{
+    width:100%;
+    }
+
+    .tableContainer table thead tr{
+    font-size: 14px;
+    font-weight: 700;
+    color: #6C2671;
+
+    }
+     .tableContainer table tbody tr{
+     font-size: 14px;
+        font-weight: 700;
+        color: #555555;
+    }
+
+
+    td, th{
+    border-bottom: 1px solid rgba(119, 119, 119, 0.3);
+    padding: 10px 0px;
+    text-align: left;
+    }
+
+
+    .tableprofile-pic{
+ border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin-left: 20%;
+  object-position: center;
+    }
+
+@media screen and (max-width: 700px) {
+    .tableContainer{
+    width: 72%;
+    margin-left: 10%;
+    overflow: scroll;
+    }
+
+.status-active, .status-inactive{
+padding:10px;
+border-radius: 8px;
+}
+
+.status-active{
+color: #2EAE4A;
+background-color: #2EAE4A66;
+font-size: 12px;
+}
+
+.status-inactive{
+color: #ff0000;
+background-color: #ff00004D;
+font-size: 12px;
+}
+
+
+:root {
+  --green: #008744;
+  --blue: #0057e7;
+  --red: #d62d20;
+  --yellow: #ffa700;
+  --white: #fff;
+}
+
+/* Scaling... any units */
+:root {
+  --width: 100px;
+}
+
+.load{
+  position: relative;
+  margin: 0 auto;
+  width: var(--width);
+  display: none;
+}
+
+.load:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 150px auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%, 0% {
+    stroke: var(--red);
+  }
+  40% {
+    stroke: var(--blue);
+  }
+  66% {
+    stroke: var(--green);
+  }
+  80%, 90% {
+    stroke: var(--yellow);
+  }
+}
+
+.showbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5%;
+}

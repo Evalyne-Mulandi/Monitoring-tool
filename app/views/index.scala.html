@@ -1,0 +1,154 @@
+@()
+
+@main("Activation Tool") {
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Landing Page</title>
+  <style>
+    /* General styles */
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ACC3FF; /* Blueish background color */
+        font-family: Arial, sans-serif;
+    }
+
+    /* Navbar styles */
+    .navbar {
+     display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Distribute items to the start and end */
+    background-color: #ACC3FF;
+    padding: 40px;
+    }
+
+/* Style the div that contains "Sign In" and "Sign Up" links */
+.signin-signup {
+
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Vertically center items */
+  margin-right: 200px; /* Adjust the margin as needed to control the space between the logo and links */
+}
+
+.signin-signup a {
+  color: black;
+  text-decoration: none;
+  margin-left: 20px; /* Add a small margin to separate the links */
+
+}
+
+.signin-signup a:hover {
+  color: white;
+  transition: text-decoration 0.3s, color 0.3s;
+
+}
+
+
+
+    /* Landing page container */
+    .landing-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70vh; /* Adjust as needed */
+    }
+
+    /* Text side */
+    .text-side {
+        flex: 1;
+        padding: 150px;
+    }
+
+    .text-content {
+        color: black;
+        text-align: center;
+        margin-top:2px;
+    }
+
+    /* Image side */
+    .image-side {
+        flex: 1;
+        margin:20px;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 30%; /* Limit the maximum height to 50% of the container */
+
+
+    }
+   .purple-text {
+    color: purple; /* Purplish color */
+    font-size: 50px; /* Larger text size */
+}
+
+.logo img {
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: 100px;
+}
+
+.paragraph {
+    line-height: 1.5; /* Adjust the value as needed to control the line spacing */
+}
+
+    .landing-image {
+   max-width: 100%;
+    max-height: 50%; /* Maintain aspect ratio and ensure the image fits the container */
+    width: auto;
+    height: auto;
+    display: block;
+    }
+
+  /* Full-page image */
+.full-page-image {
+
+    position: fixed;
+      margin-top: 55%;
+    width: 100%;
+    height: 60%;
+
+}
+
+.full-page-image img {
+    width: 100%;
+    height: 60%;
+
+}
+
+
+
+  </style>
+</head>
+<body>
+<div class="navbar">
+  <div class="logo">
+    <img src="@routes.Assets.versioned("images/dashes.png")" alt="Company Logo">
+  </div>
+  <div class="signin-signup">
+    <a href="@routes.loginController.login()">Sign In</a>
+    <a href="@routes.registerController.create()">Sign Up</a>
+  </div>
+</div>
+
+<div class="landing-container">
+  <div class="text-side">
+    <div class="text-content">
+      <h1 class="purple-text">Every Transcation<br>Under your Watch</h1>
+      <p class="paragraph">Empower your financial confidence with  cutting-edge payment monitoring system, ensuring transparency and security in every transaction,
+        providing real-time insights and peace of mind in your financial journey.</p>
+    </div>
+  </div>
+  <div class="image-side">
+    <img class="landing-image" src="@routes.Assets.versioned("images/payment.png")"  alt="Landing Image">
+
+  </div>
+  <div class="full-page-image">
+    <img src="@routes.Assets.versioned("images/image.png")" alt="Full Page Image">
+  </div>
+
+</body>
+</html>
+
+
+}

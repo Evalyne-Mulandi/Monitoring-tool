@@ -1,0 +1,44 @@
+@( svgContent: Html , number: String , text: String, color: String)
+
+<div class="homeTiles">
+    @svgContent
+    <h3 style="color: @color;">@number</h3>
+    <p>@text</p>
+</div>
+
+<style>
+    .homeTiles{
+    background-color: white;
+    padding: 15px 30px;
+    width: 15%;
+    text-align:center;
+    margin-left:60px;
+    height: 20%;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .homeTiles h3{
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0;
+    margin-top: 5px;
+    font-family: 'Inter', sans-serif;
+    }
+
+    .homeTiles p{
+    font-family: 'Inter', sans-serif;
+    color: #333333;
+    }
+
+    .homeTiles:hover{
+    background-color: rgba(172, 195, 255, 0.3);
+    }
+
+    .homeTiles:hover h3, .homeTiles:hover p{
+    color: #6C2671;
+    }
+     .homeTiles:hover svg{
+    stroke: #6C2671 !important;
+    }
+</style>

@@ -1,0 +1,260 @@
+@(headers: Seq[String], rows: Seq[Seq[String]], includeCheckboxes: Boolean, title: String)
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/table.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+<div id="toastContainer"></div>
+
+<div class="tableContainer" id="table">
+    <div class="showbox" id="showbox">
+        <div class="load">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle
+                        class="path"
+                        cx="50"
+                        cy="50"
+                        r="20"
+                        fill="none"
+                        strokeWidth="2"
+                        strokeMiterlimit="10"
+                />
+            </svg>
+        </div>
+    </div>
+    <div>
+        <h3>@title</h3>
+       <p> <a href="@routes.paymentsController.payments()">View All</a></p>
+    </div>
+    <table>
+        <thead>
+        <tr class="heading-row">
+            @if(includeCheckboxes) {
+            <th><input type="checkbox"/></th>
+            }
+            @for(header <- headers) {
+            <th>@header</th>
+            }
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @for((row, rowIndex) <- rows.zipWithIndex) {
+        <tr>
+            @if(includeCheckboxes) {
+            <td><input type="checkbox"/></td>
+            }
+            @for((cell,cellIndex) <- row.zipWithIndex) {
+            <td>
+                @if(headers.lift(cellIndex).contains("Profile Image")) {
+                <img src="@routes.Assets.versioned(cell)" alt="profile-pic" class="tableprofile-pic"/>
+                } else if(headers.lift(cellIndex).contains("Status")) {
+                @if(cell == "Active"){
+                <span class="status-active">@cell</span>
+                } else if (cell == "Inactive") {
+                <span class="status-inactive">@cell</span>
+                } else {
+                <span class="status-wrong">@cell</span>
+                }
+                } else {
+                @cell
+                }
+            </td>
+
+            }
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        var headerCheckbox = document.querySelector('thead input[type="checkbox"]');
+        var rowCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+        var rowCheckboxesData = document.querySelectorAll('tbody tr');
+        var selectedRowsData = [];
+        var loader= document.getElementById("showbox");
+        loader.style.display ='none';
+
+
+
+        headerCheckbox.addEventListener('change', function() {
+            // Set the state of all row checkboxes based on the state of the header checkbox
+            rowCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = headerCheckbox.checked;
+            });
+
+            // Print data when header checkbox is clicked
+            printData();
+        });
+
+        // Add event listeners to row checkboxes
+        rowCheckboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                // Print data when any row checkbox is clicked
+                printData();
+            });
+        });
+
+        // Function to print data
+        function printData() {
+            rowCheckboxes.forEach(function(checkbox, index) {
+                if (checkbox.checked) {
+                    var rowData = [];
+                    rowCheckboxesData[index].querySelectorAll('td').forEach(function(cell) {
+                        rowData.push(cell.innerText);
+                    });
+                    selectedRowsData.push(rowData[2]);
+                }
+            });
+
+            // Log the data or perform any other action (e.g., printing)
+            console.log(selectedRowsData);
+        }
+
+        deactivate.addEventListener('click', function() {
+        loader.style.display='block';
+          if(selectedRowsData.length >0){
+        var usernames = JSON.stringify(selectedRowsData);
+          fetch(`/deactivateUser/${encodeURIComponent(usernames)}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              displayToast(
+                'green',
+                'Success',
+                'Users Deactivated successfully',
+                '<svg version="1.1" class="toast__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0    c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7    C514.5,101.703,514.499,85.494,504.502,75.496z"></path></g></g></svg>'
+              );
+
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+        });
+
+
+        admin.addEventListener('click', function() {
+        loader.style.display='block';
+        console.log("admin");
+          if(selectedRowsData.length >0){
+        var usernames = JSON.stringify(selectedRowsData);
+          fetch(`/makeAdmin/${encodeURIComponent(usernames)}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              displayToast(
+                'green',
+                'Success',
+                'User made Admin successfully',
+                '<svg version="1.1" class="toast__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0    c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7    C514.5,101.703,514.499,85.494,504.502,75.496z"></path></g></g></svg>'
+              );
+            })
+            .catch(error => {
+              console.error('Error:', error);
+               displayToast(
+                'red',
+                'Failure',
+                'Something went wrong',
+                '<svg version="1.1" class="toast__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0    c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7    C514.5,101.703,514.499,85.494,504.502,75.496z"></path></g></g></svg>'
+              );
+            });
+        }
+        });
+
+
+       approve.addEventListener('click', function() {
+        console.log("approve");
+        loader.style.display='block';
+          if(selectedRowsData.length >0){
+        var usernames = JSON.stringify(selectedRowsData);
+          fetch(`/approveUsers/${encodeURIComponent(usernames)}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              displayToast(
+                'green',
+                'Success',
+                'Users Approved successfully',
+                '<svg version="1.1" class="toast__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0    c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7    C514.5,101.703,514.499,85.494,504.502,75.496z"></path></g></g></svg>'
+              );
+            })
+            .catch(error => {
+              console.error('Error:', error);
+               displayToast(
+                'red',
+                'Failure',
+                'Something went wrong',
+                '<svg version="1.1" class="toast__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0    c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7    C514.5,101.703,514.499,85.494,504.502,75.496z"></path></g></g></svg>'
+              );
+            });
+        }
+        });
+
+        function displayToast(color, title, description, svg) {
+        var toastHtml =
+          '<div class="toast__cell">' +
+          '<div class="toast toast--' +
+          color +
+          '">' +
+          '<div class="toast__icon">' +
+          svg +
+          '</div>' +
+          '<div class="toast__content">' +
+          '<p class="toast__type">' +
+          title +
+          '</p>' +
+          '<p class="toast__message">' +
+          description +
+          '</p>' +
+          '</div>' +
+          '<div class="toast__close">' +
+          '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.642 15.642" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 15.642 15.642">' +
+          '<path fill-rule="evenodd" d="M8.882,7.821l6.541-6.541c0.293-0.293,0.293-0.768,0-1.061  c-0.293-0.293-0.768-0.293-1.061,0L7.821,6.76L1.28,0.22c-0.293-0.293-0.768-0.293-1.061,0c-0.293,0.293-0.293,0.768,0,1.061  l6.541,6.541L0.22,14.362c-0.293,0.293-0.293,0.768,0,1.061c0.147,0.146,0.338,0.22,0.53,0.22s0.384-0.073,0.53-0.22l6.541-6.541  l6.541,6.541c0.147,0.146,0.338,0.22,0.53,0.22c0.192,0,0.384-0.073,0.53-0.22c0.293-0.293,0.293-0.768,0-1.061L8.882,7.821z"></path>' +
+          '</svg>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+        var toastContainer= document.getElementById("toastContainer");
+
+        toastContainer.innerHTML = toastHtml;
+        toastContainer.style.opacity = 1;
+
+      setTimeout(function() {
+      toastContainer.innerHTML = toastHtml;
+        loader.style.display='none';
+
+        var fadeOutInterval = setInterval(function() {
+          if (toastContainer.style.opacity > 0) {
+            toastContainer.style.opacity -= 0.1;
+          } else {
+            clearInterval(fadeOutInterval);
+          }
+        }, 50);
+            location.reload();
+      }, 5000);
+      }
+
+        });
+</script>
+
+
+

@@ -1,0 +1,164 @@
+@(client: Boolean = false)
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/sidebar.css")">
+<div class="sidebar">
+    <img src="@routes.Assets.versioned("images/logo.png")" alt="profile-pic" />
+    <h4>Main Menu</h4>
+    <ul>
+        <a href="@{if(!client) {routes.AdminDashboardController.adminDashboard()}}">
+
+        <li>
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     stroke-width="1.5" width="24" height="24" color="#000000">
+                    <defs>
+                        <style>.cls-6374f8d9b67f094e4896c64b-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}
+                        </style>
+                    </defs>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="10.09" y="1.5" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="1.5" y="1.5" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="18.68" y="1.5" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="10.09" y="10.09" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="1.5" y="10.09" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="18.68" y="10.09" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="10.09" y="18.68" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="1.5" y="18.68" width="3.82" height="3.82"></rect>
+                    <rect class="cls-6374f8d9b67f094e4896c64b-1" x="18.68" y="18.68" width="3.82" height="3.82"></rect>
+                </svg>
+                Dashboard
+            </li>
+        </a>
+
+        <a href="@routes.paymentsController.payments()">
+            <li>
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     stroke-width="1.5" width="24" height="24" color="#000000">
+                    <defs>
+                        <style>.cls-6374f8d9b67f094e4896c60d-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}
+                        </style>
+                    </defs>
+                    <circle class="cls-6374f8d9b67f094e4896c60d-1" cx="9.61" cy="5.8" r="4.3"></circle>
+                    <path class="cls-6374f8d9b67f094e4896c60d-1"
+                          d="M1.5,19.64l.7-3.47a7.56,7.56,0,0,1,7.41-6.08,7.43,7.43,0,0,1,4.59,1.57"></path>
+                    <circle class="cls-6374f8d9b67f094e4896c60d-1" cx="16.77" cy="16.77" r="5.73"></circle>
+                    <line class="cls-6374f8d9b67f094e4896c60d-1" x1="13.91" y1="16.77" x2="19.64" y2="16.77"></line>
+                    <line class="cls-6374f8d9b67f094e4896c60d-1" x1="16.77" y1="13.91" x2="16.77" y2="19.64"></line>
+                </svg>
+                Payments
+            </li>
+        </a>
+        <a href="@routes.sessionsController.sessions()">
+        <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"
+                 color="#000000">
+                <defs>
+                    <style>.cls-6375f1aeb67f094e4896c9d8-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+                </defs>
+                <g id="analysis">
+                    <polyline class="cls-6375f1aeb67f094e4896c9d8-1" points="3.96 14.04 9 9 15 15 23 7"></polyline>
+                    <line class="cls-6375f1aeb67f094e4896c9d8-1" x1="2.54" y1="15.46" x2="1" y2="17"></line>
+                </g>
+            </svg>
+            Sessions
+        </li>
+        </a>
+
+    </ul>
+    <h4>Settings</h4>
+    <ul>
+        <a href="@routes.ProfileController.Profile()">
+            <li>
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     stroke-width="1.5" width="24" height="24" color="#000000">
+                    <defs>
+                        <style>.cls-6374f8d9b67f094e4896c670-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}
+                        </style>
+                    </defs>
+                    <circle class="cls-6374f8d9b67f094e4896c670-1" cx="12" cy="7.25" r="5.73"></circle>
+                    <path class="cls-6374f8d9b67f094e4896c670-1"
+                          d="M1.5,23.48l.37-2.05A10.3,10.3,0,0,1,12,13h0a10.3,10.3,0,0,1,10.13,8.45l.37,2.05"></path>
+                </svg>
+                Profile
+            </li>
+        </a>
+        <li>
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 stroke-width="1.5" width="24" height="24" color="#000000">
+                <defs>
+                    <style>.cls-637642e7c3a86d32eae6f1bc-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+                </defs>
+                <path class="cls-637642e7c3a86d32eae6f1bc-1"
+                      d="M1.5,5.3v9.54a3.82,3.82,0,0,0,3.82,3.82H7.23v2.86L13,18.66h5.73a3.82,3.82,0,0,0,3.82-3.82V5.3a3.82,3.82,0,0,0-3.82-3.82H5.32A3.82,3.82,0,0,0,1.5,5.3Z"></path>
+                <path class="cls-637642e7c3a86d32eae6f1bc-1"
+                      d="M12,12V10.86a1.9,1.9,0,0,1,.56-1.35l.79-.79a1.92,1.92,0,0,0,.56-1.35V7.2A1.91,1.91,0,0,0,12,5.3h0a1.91,1.91,0,0,0-1.91,1.9"></path>
+                <line class="cls-637642e7c3a86d32eae6f1bc-1" x1="11.05" y1="13.89" x2="12.95" y2="13.89"></line>
+            </svg>
+            Help and Support
+        </li>
+    </ul>
+    <button class="logoutBtn"><a href="/logout">Log Out</a></button>
+</div>
+
+<svg class="toggle" id="toggleButton" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+     stroke-width="1.5" width="24" height="24" color="#000000">
+    <defs>
+        <style>.cls-6374f8d9b67f094e4896c63e-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+    </defs>
+    <line class="cls-6374f8d9b67f094e4896c63e-1" x1="0.5" y1="2.42" x2="23.5" y2="2.42"></line>
+    <line class="cls-6374f8d9b67f094e4896c63e-1" x1="0.5" y1="12" x2="23.5" y2="12"></line>
+    <line class="cls-6374f8d9b67f094e4896c63e-1" x1="0.5" y1="21.58" x2="23.5" y2="21.58"></line>
+</svg>
+<svg id="close" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24"
+     height="24" color="#000000">
+    <defs>
+        <style>.cls-6374f8d9b67f094e4896c61e-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style>
+    </defs>
+    <circle class="cls-6374f8d9b67f094e4896c61e-1" cx="12" cy="12" r="10.5"></circle>
+    <line class="cls-6374f8d9b67f094e4896c61e-1" x1="16.77" y1="7.23" x2="7.23" y2="16.77"></line>
+    <line class="cls-6374f8d9b67f094e4896c61e-1" x1="7.23" y1="7.23" x2="16.77" y2="16.77"></line>
+</svg>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var currentPath = window.location.pathname;
+        var links = document.querySelectorAll('.sidebar ul a');
+
+        links.forEach(function (link) {
+            var href = link.getAttribute('href');
+            if (currentPath === href) {
+                link.classList.add('active');
+            }
+        });
+
+
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var toggleButton = document.getElementById('toggleButton');
+        var closeButton = document.getElementById('close');
+        var sidebar = document.querySelector('.sidebar');
+
+        function toggleSidebar() {
+            // Toggle the visibility of the sidebar
+            sidebar.style.display = (sidebar.style.display === 'none' || sidebar.style.display === '') ? 'block' : 'none';
+            toggleButton.style.display = (sidebar.style.display === 'block') ? 'none' : 'block';
+            closeButton.style.display=(toggleButton.style.display === 'block') ? 'none' : 'block';
+        }
+
+        if (toggleButton && sidebar) {
+            toggleButton.addEventListener('click', toggleSidebar);
+            closeButton.addEventListener('click', toggleSidebar);
+
+            // Event listener for window resize
+            window.addEventListener('resize', function () {
+                // Check the screen width and hide the sidebar if the screen size is greater than 700px
+                if (window.innerWidth > 700) {
+                    sidebar.style.display = 'block';
+                    toggleButton.style.display = 'none';
+                    closeButton.style.display= 'none';
+                } else {
+                sidebar.style.display = 'none';
+                toggleButton.style.display = 'block';
+                }
+            });
+        }
+    });
+</script>

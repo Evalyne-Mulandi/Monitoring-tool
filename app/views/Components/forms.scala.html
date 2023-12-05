@@ -1,0 +1,81 @@
+@(title: String, items: Seq[(String, String)], userResponse: com.fasterxml.jackson.databind.JsonNode)
+
+
+<div class="profileContainer">
+    @for((label, name) <- items) {
+    <div class="form-group">
+        <label for="@name">@label</label>
+        <input type="text" id="@name" name="@name" placeholder="@label">
+    </div>
+    }
+    <button class="btn">Update Profile</button>
+</div>
+<style>
+    .profileContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 3fr);
+    gap: 10px;
+    margin-top: 30px;
+    background-color: white;
+    margin-left: 25%;
+    width: 66%;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
+    font-family: 'Inter', sans-serif;
+    max-height: 470px;
+    }
+      .profileContainer  h3{
+        color: #555555;
+        }
+
+        .form-group{
+        padding: 10px;
+        width: 100%;
+
+        }
+        .form-group label{
+        margin-bottom: 30px;
+        }
+
+        .form-group input {
+        display: block;
+        outline: 0;
+        border: none;
+        padding: 10px;
+        border: 0.5px solid rgba(119, 119, 119, 0.85);
+        border-radius: 10px;
+        width: 70%;
+        margin: 10px 0;
+        }
+
+    .btn{
+    width: 130px;
+        color: white;
+    background-color: #6C2671;
+    height: min-content;
+    }
+</style>
+
+<script>
+    console.log("profile");
+     document.addEventListener("DOMContentLoaded", function () {
+     var username = "@userResponse.path("data").path("user").path("user details").path("username").asText()";
+     var firstName = "@userResponse.path("data").path("user").path("user details").path("firstName").asText()";
+     var lastName = "@userResponse.path("data").path("user").path("user details").path("lastName").asText()";
+     var email = "@userResponse.path("data").path("user").path("user details").path("email").asText()";
+     var phone = "@userResponse.path("data").path("user").path("user details").path("phoneNumber").asText()";
+
+     function setFormValues() {
+        document.getElementById('username').value = username;
+        document.getElementById('firstName').value = firstName
+        document.getElementById('lastName').value =lastName;
+        document.getElementById('phone').value = phone;
+        // Set values for other fields
+    }
+            setFormValues();
+
+
+        });
+
+</script>
